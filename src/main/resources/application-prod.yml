@@ -1,0 +1,67 @@
+# Production environment configuration
+# Activate with: --spring.profiles.active=prod
+
+spring:
+  config:
+    activate:
+      on-profile: prod
+      
+  datasource:
+    # Supabase PostgreSQL connection pooler for production
+    url: jdbc:postgresql://${DB_HOST:db.xmcvmihhwjqfguouvywt.supabase.co}:6543/postgres?sslmode=require
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD}            # MUST be set via environment variable
+    driver-class-name: org.postgresql.Driver
+    
+    # Production-grade HikariCP settings
+    hikari:
+      maximum-pool-size: 30             # Higher for production traffic
+      minimum-idle: 5                   # Keep more connections warm
+      max-lifetime: 280000              # 4.67 min
+      keepalive-time: 120000            # 2 min
+      idle-timeout: 60000               # 1 min
+      connection-timeout: 10000         # 10 sec
+      leak-detection-threshold: 60000   # Detect connection leaks
+      
+  jpa:
+    hibernate:
+      ddl-auto: validate                # NEVER update schema in prod automatically
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: false
+    show-sql: false                     # Disable SQL logging in prod
+    open-in-view: false
+    
+  data:
+    redis:
+      host: ${REDIS_HOST}               # Must be set via environment
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:}
+      connect-timeout: 2000ms
+      timeout: 2000ms
+      ssl: true                         # Enable SSL for production Redis
+      
+# CORS for production frontend
+app:
+  cors:
+    allowed-origins: ${ALLOWED_ORIGINS:https://app.example.com}
+    
+# Pagination
+  data:
+    web:
+      pageable:
+        default-page-size: 20
+        max-page-size: 100
+
+# Production logging - errors only
+logging:
+  level:
+    root: WARN
+    edu.qs.attendance: INFO
+    org.hibernate.SQL: WARN
+    org.springframework: WARN
+  file:
+    name: /var/log/attendance-system/application.log
+    max-size: 100MB
+    max-history: 30

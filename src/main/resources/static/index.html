@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Management System - API Tester</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: white;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        .response {
+            margin-top: 15px;
+            padding: 10px;
+            background: #f5f5f5;
+            border-radius: 5px;
+            border-left: 4px solid #667eea;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            max-height: 200px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .response.error {
+            border-left-color: #e74c3c;
+            background: #ffebee;
+        }
+
+        .response.success {
+            border-left-color: #27ae60;
+            background: #e8f5e9;
+        }
+
+        .info {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            border-left: 4px solid #2196f3;
+            color: #1976d2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏢 Employee Management System - API Tester</h1>
+        
+        <div class="info">
+            <strong>API Base URL:</strong> http://localhost:8080<br>
+            <strong>Status:</strong> All APIs ready for testing
+        </div>
+
+        <div class="grid">
+            <!-- Create Worker -->
+            <div class="card">
+                <h2>👷 Create Worker</h2>
+                <form id="createWorkerForm">
+                    <div class="form-group">
+                        <label for="workerName">Name:</label>
+                        <input type="text" id="workerName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="workerPhone">Phone:</label>
+                        <input type="text" id="workerPhone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="workerDesignation">Designation:</label>
+                        <select id="workerDesignation" required>
+                            <option value="">Select...</option>
+                            <option value="MASON">Mason</option>
+                            <option value="ELECTRICIAN">Electrician</option>
+                            <option value="PLUMBER">Plumber</option>
+                            <option value="HELPER">Helper</option>
+                            <option value="SUPERVISOR">Supervisor</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="dailyWageRate">Daily Wage Rate:</label>
+                        <input type="number" id="dailyWageRate" step="0.01" required>
+                    </div>
+                    <button type="submit">Create Worker</button>
+                </form>
+                <div id="createWorkerResponse" class="response" style="display:none;"></div>
+            </div>
+
+            <!-- Create Site -->
+            <div class="card">
+                <h2>🏗️ Create Site</h2>
+                <form id="createSiteForm">
+                    <div class="form-group">
+                        <label for="siteName">Site Name:</label>
+                        <input type="text" id="siteName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="siteLocation">Location:</label>
+                        <input type="text" id="siteLocation" required>
+                    </div>
+                    <button type="submit">Create Site</button>
+                </form>
+                <div id="createSiteResponse" class="response" style="display:none;"></div>
+            </div>
+
+            <!-- Clock In -->
+            <div class="card">
+                <h2>⏰ Clock In</h2>
+                <form id="clockInForm">
+                    <div class="form-group">
+                        <label for="clockInWorkerId">Worker ID:</label>
+                        <input type="number" id="clockInWorkerId" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="clockInSiteId">Site ID:</label>
+                        <input type="number" id="clockInSiteId" required>
+                    </div>
+                    <button type="submit">Clock In</button>
+                </form>
+                <div id="clockInResponse" class="response" style="display:none;"></div>
+            </div>
+
+            <!-- Clock Out -->
+            <div class="card">
+                <h2>🏁 Clock Out</h2>
+                <form id="clockOutForm">
+                    <div class="form-group">
+                        <label for="clockOutWorkerId">Worker ID:</label>
+                        <input type="number" id="clockOutWorkerId" required>
+                    </div>
+                    <button type="submit">Clock Out</button>
+                </form>
+                <div id="clockOutResponse" class="response" style="display:none;"></div>
+            </div>
+
+            <!-- Active Workers -->
+            <div class="card">
+                <h2>👥 Active Workers</h2>
+                <p style="margin-bottom: 15px; color: #666;">View all workers currently clocked in</p>
+                <button onclick="getActiveWorkers()">Get Active Workers</button>
+                <div id="activeWorkersResponse" class="response" style="display:none;"></div>
+            </div>
+
+            <!-- Attendance History -->
+            <div class="card">
+                <h2>📋 Attendance History</h2>
+                <form id="attendanceHistoryForm">
+                    <div class="form-group">
+                        <label for="historyWorkerId">Worker ID:</label>
+                        <input type="number" id="historyWorkerId" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="historyFromDate">From Date:</label>
+                        <input type="date" id="historyFromDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="historyToDate">To Date:</label>
+                        <input type="date" id="historyToDate" required>
+                    </div>
+                    <button type="submit">Get History</button>
+                </form>
+                <div id="attendanceHistoryResponse" class="response" style="display:none;"></div>
+            </div>
+
+            <!-- Overtime Summary -->
+            <div class="card">
+                <h2>💰 Overtime Summary</h2>
+                <form id="overtimeSummaryForm">
+                    <div class="form-group">
+                        <label for="overtimeWorkerId">Worker ID:</label>
+                        <input type="number" id="overtimeWorkerId" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="overtimeMonth">Month (YYYY-MM):</label>
+                        <input type="month" id="overtimeMonth" required>
+                    </div>
+                    <button type="submit">Get Summary</button>
+                </form>
+                <div id="overtimeSummaryResponse" class="response" style="display:none;"></div>
+            </div>
+
+            <!-- Settle Overtime -->
+            <div class="card">
+                <h2>✅ Settle Overtime</h2>
+                <form id="settleOvertimeForm">
+                    <div class="form-group">
+                        <label for="settleWorkerId">Worker ID:</label>
+                        <input type="number" id="settleWorkerId" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="settleMonth">Month (YYYY-MM):</label>
+                        <input type="month" id="settleMonth" required>
+                    </div>
+                    <button type="submit">Settle Overtime</button>
+                </form>
+                <div id="settleOvertimeResponse" class="response" style="display:none;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const BASE_URL = 'http://localhost:8080';
+
+        // Helper function to display response
+        function showResponse(elementId, data, isError = false) {
+            const element = document.getElementById(elementId);
+            element.style.display = 'block';
+            element.className = 'response ' + (isError ? 'error' : 'success');
+            element.textContent = typeof data === 'object' ? JSON.stringify(data, null, 2) : data;
+        }
+
+        // Create Worker
+        document.getElementById('createWorkerForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            try {
+                const response = await fetch(`${BASE_URL}/api/workers`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        name: document.getElementById('workerName').value,
+                        phone: document.getElementById('workerPhone').value,
+                        designation: document.getElementById('workerDesignation').value,
+                        dailyWageRate: parseFloat(document.getElementById('dailyWageRate').value)
+                    })
+                });
+                const data = await response.json();
+                showResponse('createWorkerResponse', data, !response.ok);
+                if (response.ok) e.target.reset();
+            } catch (error) {
+                showResponse('createWorkerResponse', 'Error: ' + error.message, true);
+            }
+        });
+
+        // Create Site
+        document.getElementById('createSiteForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            try {
+                const response = await fetch(`${BASE_URL}/api/sites`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        siteName: document.getElementById('siteName').value,
+                        location: document.getElementById('siteLocation').value
+                    })
+                });
+                const data = await response.json();
+                showResponse('createSiteResponse', data, !response.ok);
+                if (response.ok) e.target.reset();
+            } catch (error) {
+                showResponse('createSiteResponse', 'Error: ' + error.message, true);
+            }
+        });
+
+        // Clock In
+        document.getElementById('clockInForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            try {
+                const response = await fetch(`${BASE_URL}/api/attendance/clock-in`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        workerId: parseInt(document.getElementById('clockInWorkerId').value),
+                        siteId: parseInt(document.getElementById('clockInSiteId').value)
+                    })
+                });
+                const data = await response.json();
+                showResponse('clockInResponse', data, !response.ok);
+                if (response.ok) e.target.reset();
+            } catch (error) {
+                showResponse('clockInResponse', 'Error: ' + error.message, true);
+            }
+        });
+
+        // Clock Out
+        document.getElementById('clockOutForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            try {
+                const response = await fetch(`${BASE_URL}/api/attendance/clock-out`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        workerId: parseInt(document.getElementById('clockOutWorkerId').value)
+                    })
+                });
+                const data = await response.json();
+                showResponse('clockOutResponse', data, !response.ok);
+                if (response.ok) e.target.reset();
+            } catch (error) {
+                showResponse('clockOutResponse', 'Error: ' + error.message, true);
+            }
+        });
+
+        // Get Active Workers
+        async function getActiveWorkers() {
+            try {
+                const response = await fetch(`${BASE_URL}/api/attendance/active`);
+                const data = await response.json();
+                showResponse('activeWorkersResponse', data, !response.ok);
+            } catch (error) {
+                showResponse('activeWorkersResponse', 'Error: ' + error.message, true);
+            }
+        }
+
+        // Attendance History
+        document.getElementById('attendanceHistoryForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            try {
+                const workerId = document.getElementById('historyWorkerId').value;
+                const fromDate = document.getElementById('historyFromDate').value;
+                const toDate = document.getElementById('historyToDate').value;
+                const response = await fetch(`${BASE_URL}/api/attendance/history/${workerId}?from=${fromDate}&to=${toDate}`);
+                const data = await response.json();
+                showResponse('attendanceHistoryResponse', data, !response.ok);
+            } catch (error) {
+                showResponse('attendanceHistoryResponse', 'Error: ' + error.message, true);
+            }
+        });
+
+        // Overtime Summary
+        document.getElementById('overtimeSummaryForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            try {
+                const workerId = document.getElementById('overtimeWorkerId').value;
+                const month = document.getElementById('overtimeMonth').value;
+                const response = await fetch(`${BASE_URL}/api/overtime/summary/${workerId}/${month}`);
+                const data = await response.json();
+                showResponse('overtimeSummaryResponse', data, !response.ok);
+            } catch (error) {
+                showResponse('overtimeSummaryResponse', 'Error: ' + error.message, true);
+            }
+        });
+
+        // Settle Overtime
+        document.getElementById('settleOvertimeForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            try {
+                const workerId = document.getElementById('settleWorkerId').value;
+                const month = document.getElementById('settleMonth').value;
+                const response = await fetch(`${BASE_URL}/api/overtime/settle/${workerId}/${month}`, {
+                    method: 'POST'
+                });
+                const data = await response.json();
+                showResponse('settleOvertimeResponse', data, !response.ok);
+                if (response.ok) e.target.reset();
+            } catch (error) {
+                showResponse('settleOvertimeResponse', 'Error: ' + error.message, true);
+            }
+        });
+
+        // Set default dates
+        const today = new Date().toISOString().split('T')[0];
+        const firstDayOfMonth = new Date(new Date().getFullYear(), new Date().getMonth(), 1).toISOString().split('T')[0];
+        document.getElementById('historyFromDate').value = firstDayOfMonth;
+        document.getElementById('historyToDate').value = today;
+
+        const currentMonth = new Date().toISOString().slice(0, 7);
+        document.getElementById('overtimeMonth').value = currentMonth;
+        document.getElementById('settleMonth').value = currentMonth;
+    </script>
+</body>
+</html>

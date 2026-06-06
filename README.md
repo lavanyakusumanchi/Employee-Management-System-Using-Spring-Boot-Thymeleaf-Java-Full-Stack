@@ -1,122 +1,292 @@
-<h1 align="center">Employee Management System 🧮🚀</h1>
-<p align="center"><i>A Spring MVC web application for Employee Management System with the following CRUD operations in single platform</i></p>
+<h1 align="center">Employee Attendance Management System 🧮🚀</h1>
+<p align="center"><i>A Spring Boot REST API application for Construction Worker Attendance & Overtime Management</i></p>
 <br>
 
-<p align="center"><i>CRUD Operations</i> 👨🏽‍💻 
-  <br>
+## 🎯 Current Status
 
-* A Spring MVC web application for Employee Management System with the following CRUD operations:
-     <br>
-  •	Get all the Employee
-    <br>
-  •	Add a new Employee
-    <br>
-  •	Update an Employee
-    <br>
-  •	Delete an Employee
-    
+### ✅ What's Working:
+- ✅ Application starts successfully on port 8080
+- ✅ Interactive Web UI for API testing
+- ✅ Complete REST API with 8 endpoints
+- ✅ Database (H2 in-memory) running
+- ✅ All CRUD operations functional
+- ✅ Attendance tracking and overtime calculations
 
-  <!-- TABLE OF CONTENTS -->
-  <details>
-  <summary>Table of Contents</summary>
-  <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-        <li><a href="#Ddemo">Demo</a></li>
-      </ul>
-    </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>>
-  </ol>
-</details>
+### ⚠️ Known Limitations:
+- ⚠️ Data is **NOT persistent** (using H2 in-memory database)
+- ⚠️ Data is **lost when app stops**
+- ⚠️ Supabase PostgreSQL connection blocked by network/firewall
 
- Built With :
-  # Technology Stack:
-  * Java 17
-  * Spring Boot
-  * HTML
-  * Bootstrap
-  * Thymeleaf
-  * Spring MVC
-  * Spring Data JPA
-  * Hibernate
-  * Maven
-  * PostgreSQL Database
-  * Spring-Boot-Devtools
+---
 
-<!-- GETTING STARTED -->
-## Demo:
-* All Employees User Interface
-  ![image](https://github.com/user-attachments/assets/3f07d3f5-c6e5-420c-95d3-0239ab8e073c)
+## 🚀 Quick Start (3 Steps)
 
-* Add Employee User Interface
-  ![image](https://github.com/user-attachments/assets/55c9bcbb-7a65-415b-b8f2-683a7f9ea5e6)
+### 1️⃣ Open Terminal in Project Folder
+```cmd
+cd C:\Users\lavan\Employee-Management-System-Using-Spring-Boot-Thymeleaf-Java-Full-Stack
+```
 
-* Update Employee User Interface
-  ![image](https://github.com/user-attachments/assets/be5fca02-d288-4650-a32f-2d1458f9e383)
+### 2️⃣ Run the Application
+```cmd
+.\mvnw.cmd spring-boot:run
+```
 
-* Delect Student User Interface
-  ![delect](https://github.com/user-attachments/assets/14235a53-f644-4901-8690-4184ea973315)
+Wait for: `Started EmployeeManagementSystemApplication in X.XXX seconds`
 
-* Pagination:
-  1. Page No.1:
-     ![Pagination](https://github.com/user-attachments/assets/374856f8-a36e-4c0f-8eb9-7423a859013e)
-  2. Page No.2:
-     ![page2](https://github.com/user-attachments/assets/3afe89bb-81b5-40fd-928d-192935487627)
+### 3️⃣ Open Your Browser
+```
+http://localhost:8080
+```
 
-* Sorting:
-  1. Whitout  Sorting
-     ![WSorting](https://github.com/user-attachments/assets/acabc054-cb47-49e2-a583-858f1193f271)
-  2. with Sorting 
-     ![Sorting](https://github.com/user-attachments/assets/1c164bb9-5a20-419a-ae5d-ee84569bb47e)
+**You'll see a purple gradient page with 8 API testing cards!**
 
-* Database Table
-  ![image](https://github.com/user-attachments/assets/f67ecd5f-20ed-4a31-8e32-8cf89bdaa0e7)
+---
 
- ### Prerequisites
+## 📚 Documentation
 
-* dependencies
-  ```sh
-  
-  dependencies : 
-  Spring Boot DevTools
-  Spring Data Jpa
-  PostgreSQL Driver
-  Thymeleaf
-  Spring Web
-  Spring Web Services
+- **[QUICK_START.md](QUICK_START.md)** - Start here! Step-by-step guide with screenshots
+- **[HOW_TO_TEST_APIs.md](HOW_TO_TEST_APIs.md)** - Complete API testing guide with examples
+- **[ANSWERS_TO_YOUR_QUESTIONS.md](ANSWERS_TO_YOUR_QUESTIONS.md)** - FAQ about database, mvnw, Supabase, UI issues
+
+---
+
+## 🔌 API Endpoints
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/api/workers` | POST | Create a new worker |
+| `/api/sites` | POST | Create a new construction site |
+| `/api/attendance/clock-in` | POST | Clock in worker to site |
+| `/api/attendance/clock-out` | POST | Clock out worker |
+| `/api/attendance/active` | GET | Get all currently active workers |
+| `/api/attendance/history` | GET | Get attendance history for worker |
+| `/api/overtime/summary` | GET | Get overtime summary for worker/month |
+| `/api/overtime/settle` | POST | Settle overtime payment |
+
+---
+
+## 🧪 Testing the APIs
+
+### Option 1: Web UI (Easiest)
+1. Start the app: `.\mvnw.cmd spring-boot:run`
+2. Open browser: http://localhost:8080
+3. Use the interactive forms to test all APIs
+
+### Option 2: cURL Commands
+```cmd
+# Create Worker
+curl -X POST http://localhost:8080/api/workers -H "Content-Type: application/json" -d "{\"name\":\"John Doe\",\"phone\":\"1234567890\",\"designation\":\"MASON\",\"dailyWageRate\":500}"
+
+# Create Site
+curl -X POST http://localhost:8080/api/sites -H "Content-Type: application/json" -d "{\"siteName\":\"Site A\",\"location\":\"Downtown\"}"
+
+# Clock In
+curl -X POST http://localhost:8080/api/attendance/clock-in -H "Content-Type: application/json" -d "{\"workerId\":1,\"siteId\":1}"
+
+# Get Active Workers
+curl http://localhost:8080/api/attendance/active
+```
+
+---
+
+## 🏗️ Features
+
+### ✨ Core Functionality:
+- **Worker Management** - Create and manage construction workers
+- **Site Management** - Track multiple construction sites
+- **Attendance Tracking** - Clock in/out with automatic time calculation
+- **Overtime Calculation** - Automatic overtime detection (>8 hours/day)
+- **Overtime Settlement** - Mark overtime as paid
+- **Pagination** - All list endpoints support pagination
+- **Real-time Active Workers** - See who's currently on-site
+
+### 🎨 Interactive Web UI:
+- Clean, modern purple gradient design
+- 8 interactive API testing cards
+- Real-time response display (green = success, red = error)
+- No installation needed (plain HTML/CSS/JavaScript)
+
+---
+## 🛠️ Technology Stack
+
+- **Java 17** - Programming language
+- **Spring Boot 3.x** - Application framework
+- **Spring MVC** - REST API framework
+- **Spring Data JPA** - Database access
+- **Hibernate** - ORM framework
+- **Maven** - Build tool (Maven Wrapper included)
+- **PostgreSQL** - Production database (Supabase)
+- **H2 Database** - Development database (current)
+- **Spring Security** - Security framework (currently permissive)
+- **Redis** - Caching (optional)
+- **Lombok** - Code generation
+- **HTML/CSS/JavaScript** - Web UI
+
+---
+
+## 📊 Database
+
+### Current: H2 In-Memory Database
+- **JDBC URL**: `jdbc:h2:mem:attendancedb`
+- **Console**: http://localhost:8080/h2-console
+- **Username**: `sa`
+- **Password**: (blank)
+- **⚠️ WARNING**: Data is lost when app stops!
+
+### Future: Supabase PostgreSQL
+- **Status**: Currently blocked by network/firewall
+- **Fix**: See [ANSWERS_TO_YOUR_QUESTIONS.md](ANSWERS_TO_YOUR_QUESTIONS.md) for troubleshooting
+- **Benefit**: Permanent data storage in cloud
+
+---
+
+## 🔧 Prerequisites
+
+### Required:
+- **Java 17** or higher
+  ```cmd
+  java -version
   ```
-* to run the project
-  ```sh
-  intellij/eclipse
-  ```
-* to build the project for production
-  ```sh
-  Go to start.spring.io.
-  Choose Maven, set Group and Artifact names.
-  Pick Java version and add any dependencies (e.g., Spring Web, Spring JPA).
-  Click Generate to download the project as a .zip file.
-  Extract and import it into your IDE.
-  Run the main method in DemoApplication.java to start the app.
-  https://start.spring.io/
-  ```
+- **Maven Wrapper** (included in project - no Maven installation needed!)
 
-### Installation 
-    _Follow these simple steps to get the server up and running 👾🧮🚀✅._ 
-   1. Create Database -> employe_management_system_webapp
-   2.  Open project in preferred IDE (I used SpringToolsSuite4)
-   3.  Run the project as a Spring Boot app.
-   4.  Hibernate will automatically create a table -> employee
-   5.   Add sample data to the table using  Postgresql pgadmin tools
-   6.   Open web browser at localhost: 8080/
-   7.    Add, Update, Delete records and Pagination, Sorting according  alphabetically from the web app
+### Optional:
+- **PostgreSQL** (if not using Supabase)
+- **Redis** (for caching features)
+
+---
+
+## 📦 Installation
+
+### Step 1: Clone or Download Project
+```cmd
+git clone <your-repo-url>
+cd Employee-Management-System-Using-Spring-Boot-Thymeleaf-Java-Full-Stack
+```
+
+### Step 2: Run the Application
+```cmd
+.\mvnw.cmd spring-boot:run
+```
+
+That's it! No database setup needed - H2 is configured automatically.
+
+---
+
+## 🎮 Usage Examples
+
+### Complete Test Flow (5 minutes):
+
+1. **Create a Worker**
+   - Name: John Doe
+   - Phone: 1234567890
+   - Designation: MASON
+   - Daily Wage: 500
+
+2. **Create a Site**
+   - Site Name: Construction Site A
+   - Location: Downtown
+
+3. **Clock In**
+   - Worker ID: 1
+   - Site ID: 1
+
+4. **View Active Workers**
+   - See John Doe is currently on-site
+
+5. **Clock Out**
+   - Worker ID: 1
+   - View total hours and overtime
+
+6. **View Attendance History**
+   - Worker ID: 1
+   - Date range: Last 30 days
+
+7. **Get Overtime Summary**
+   - Worker ID: 1
+   - Month: 2026-06
+
+8. **Settle Overtime**
+   - Worker ID: 1
+   - Month: 2026-06
+
+---
+
+## 🐛 Troubleshooting
+
+### Port 8080 already in use?
+```cmd
+netstat -ano | findstr :8080
+taskkill /F /PID [PID_NUMBER]
+```
+
+### UI not loading?
+1. Check if app is running in terminal
+2. Hard refresh: Ctrl + Shift + R
+3. Try: http://127.0.0.1:8080
+
+### API returns errors?
+- Read the error message (it explains the problem)
+- Make sure you created workers/sites before clock in
+- Check data format (phone must be numbers, etc.)
+
+### Want permanent data storage?
+- Fix Supabase connection (see ANSWERS_TO_YOUR_QUESTIONS.md)
+- Or install PostgreSQL locally
+
+---
+
+## 📝 Project Structure
+
+```
+src/main/java/edu/qs/attendance/
+├── config/          - Configuration classes (Security, CORS, Redis)
+├── controller/      - REST API endpoints
+├── dto/             - Data Transfer Objects
+├── entity/          - Database entities (Worker, Site, AttendanceLog, etc.)
+├── event/           - Application events
+├── exception/       - Exception handling
+├── listener/        - Event listeners
+├── repository/      - Database repositories
+└── service/         - Business logic
+
+src/main/resources/
+├── static/          - Web UI (index.html)
+└── application.properties - Configuration
+```
+
+---
+
+## 🤝 Contributing
+
+Feel free to fork this project and submit pull requests!
+
+---
+
+## 📞 Support
+
+For issues and questions:
+1. Check [ANSWERS_TO_YOUR_QUESTIONS.md](ANSWERS_TO_YOUR_QUESTIONS.md)
+2. Check [HOW_TO_TEST_APIs.md](HOW_TO_TEST_APIs.md)
+3. Review terminal error messages
+
+---
+
+## 📄 License
+
+This project is for educational purposes.
+
+---
+
+## 🎉 Acknowledgments
+
+- Spring Boot team for the excellent framework
+- Supabase for cloud PostgreSQL hosting
+- All contributors and testers
+
+---
+
+<div align="center">
+  <p><strong>Ready to start? Run: <code>.\mvnw.cmd spring-boot:run</code></strong></p>
+  <p><strong>Then open: <a href="http://localhost:8080">http://localhost:8080</a></strong></p>
+</div>
 
