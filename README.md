@@ -113,6 +113,28 @@ curl http://localhost:8080/api/attendance/active
 
 ---
 
+
+## AI Tools Used
+- Claude (Anthropic): System architecture design, entity/service/repository 
+  code, Redis caching strategy, overtime calculation logic, all 5 ticket 
+  fixes (LF-201 to LF-205), error handling patterns
+- Kiro IDE AI: Package refactoring, dependency management, running and 
+  testing the application
+
+## Forked From
+vikashshaarma007/Employee-Management-System-Using-Spring-Boot-Thymeleaf-Java-Full-Stack
+Chose this because: Java 17, Spring Boot 3.x, JPA, PostgreSQL stack — 
+matches assignment requirements exactly. Clean structure made it easy 
+to extend with the attendance feature.
+
+Then run:
+git add .
+git commit -m "docs: add AI tools used and forked repo details to README"
+git push origin main
+
+---
+
+
 ## 📊 Database
 
 ### Current: H2 In-Memory Database
