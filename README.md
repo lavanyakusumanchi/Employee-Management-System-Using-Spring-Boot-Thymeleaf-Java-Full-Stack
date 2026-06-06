@@ -38,17 +38,6 @@ Wait for: `Started EmployeeManagementSystemApplication in X.XXX seconds`
 http://localhost:8080
 ```
 
-**You'll see a purple gradient page with 8 API testing cards!**
-
----
-
-## 📚 Documentation
-
-- **[QUICK_START.md](QUICK_START.md)** - Start here! Step-by-step guide with screenshots
-- **[HOW_TO_TEST_APIs.md](HOW_TO_TEST_APIs.md)** - Complete API testing guide with examples
-- **[ANSWERS_TO_YOUR_QUESTIONS.md](ANSWERS_TO_YOUR_QUESTIONS.md)** - FAQ about database, mvnw, Supabase, UI issues
-
----
 
 ## 🔌 API Endpoints
 
@@ -177,7 +166,7 @@ That's it! No database setup needed - H2 is configured automatically.
 ### Complete Test Flow (5 minutes):
 
 1. **Create a Worker**
-   - Name: John Doe
+   - Name: lavanya
    - Phone: 1234567890
    - Designation: MASON
    - Daily Wage: 500
